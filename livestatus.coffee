@@ -12,13 +12,13 @@
 #   hubot check <server> - Reports results of latest checks on  <server>
 #
 # Author:
-#   jmhobbs
+#   beezly
 
 module.exports = (robot) ->
   robot.respond /check (.*)/i, (msg) ->
-    isUp msg, msg.match[1]
+    checkStatus msg, msg.match[1]
 
-isUp = (msg, domain) ->
+checkStatus = (msg, domain) ->
   console.log "We have to do something about #{domain}"
   net = require 'net'
   databack = "";
