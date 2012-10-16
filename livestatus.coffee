@@ -19,13 +19,11 @@ module.exports = (robot) ->
     checkStatus msg, msg.match[1]
 
 checkStatus = (msg, domain) ->
-  console.log "We have to do something about #{domain}"
   net = require 'net'
   databack = "";
   status_host = process.env.HUBOT_LIVESTATUS_HOST || 'localhost'
   status_port = process.env.HUBOT_LIVESTATUS_PORT || '6557'
   client = net.connect {host: status_host, port: status_port}, () ->
-    console.log 'isup connected'
     client.write "GET hosts\nFilter: host_name =~ #{domain}\nColumns: last_state notes_url services_with_state\nOutputFormat: json\n\n"
   client.on 'data', (data) ->
     databack += data.toString()
